@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './status.component.html',
-  styleUrl: './status.component.css'
+  styleUrl: './status.component.css',
 })
 export class StatusComponent {
   currentStatus = 'online';
