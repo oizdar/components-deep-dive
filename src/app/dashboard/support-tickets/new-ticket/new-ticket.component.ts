@@ -29,11 +29,15 @@ export class NewTicketComponent implements AfterViewInit, OnInit {
   // @ViewChildren(ButtonComponent) buttons?: ButtonComponent[]; for multiple items
   // private form = viewChild.required<ElementRef<HTMLFormElement>>('form'); //another way to get the form element, gives signal
   addTicket = output<{ title: string, text: string }>()
+  title = '';
+  request = '';
 
-  onSubmit(title: string, request: string) {
+  onSubmit() {
 
-    this.addTicket.emit({title, text: request});
-    this.form?.nativeElement.reset();
+    this.addTicket.emit({title: this.title, text: this.request});
+    this.title = '';
+    this.request = '';
+    // this.form?.nativeElement.reset();
     // this.form().nativeElement.reset(); // if use signal
   }
 
