@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  OnInit,
+  OnInit, output,
   Signal,
   viewChild,
   ViewChild,
@@ -11,6 +11,7 @@ import {
 import { ButtonComponent } from "../../../shared/button/button.component";
 import { ControlComponent } from "../../../shared/control/control.component";
 import { FormsModule } from "@angular/forms";
+import { Ticket } from "../ticket.model";
 
 @Component({
   selector: 'app-new-ticket',
@@ -27,10 +28,11 @@ export class NewTicketComponent implements AfterViewInit, OnInit {
   @ViewChild('form') private form?: ElementRef<HTMLFormElement>;
   // @ViewChildren(ButtonComponent) buttons?: ButtonComponent[]; for multiple items
   // private form = viewChild.required<ElementRef<HTMLFormElement>>('form'); //another way to get the form element, gives signal
+  addTicket = output<{ title: string, text: string }>()
+
   onSubmit(title: string, request: string) {
 
-    console.log(title, request, this.form);
-    console.dir(this.form);
+    this.addTicket.emit({title, text: request});
     this.form?.nativeElement.reset();
     // this.form().nativeElement.reset(); // if use signal
   }

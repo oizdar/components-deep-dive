@@ -1,17 +1,17 @@
-#tickets {
+:host {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-#tickets ul {
+:host ul {
   list-style: none;
   margin: 0;
   padding: 0;
   width: 15rem;
 }
 
-#tickets li {
+:host li {
   margin: 0.5rem 0;
 }
 
