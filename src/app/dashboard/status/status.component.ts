@@ -11,8 +11,11 @@ export class StatusComponent implements OnInit, OnDestroy {
   currentStatus = signal<'online' | 'offline' | 'unknown'>('offline')
   private interval?: ReturnType<typeof setInterval>;
   constructor(private destroyRef: DestroyRef) {
-    effect(() => {
+    effect((onCleanup) => {// hook to run code when signal value changes
       console.log(this.currentStatus())
+      onCleanup(() => {
+        console.log('cleanup effect');
+      })
     });
   }
 
