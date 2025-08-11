@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterContentInit, afterNextRender, afterRender,
   Component, contentChild,
   ContentChild,
   ElementRef,
@@ -34,6 +34,14 @@ export class ControlComponent implements AfterContentInit, OnInit{
   // constructor(private el: ElementRef) {
   // }
 
+  constructor() {
+    afterRender(() => {
+      console.log('afterRender'); // if anything changes anywhere on the entire angular application, this will be called
+    })
+    afterNextRender(() => {
+      console.log('afterNextRender'); // after the next change anywhere on the entire angular application, this will be called
+    })
+  }
   onClick() {
     console.log('clicked');
     console.log(this.control);

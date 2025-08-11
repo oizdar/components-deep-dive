@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, effect, OnDestroy, OnInit, signal } from '@angular/core';
 
 @Component({
   selector: 'app-status',
@@ -8,20 +8,24 @@ import { Component, DestroyRef, OnDestroy, OnInit } from '@angular/core';
   styleUrl: './status.component.css',
 })
 export class StatusComponent implements OnInit, OnDestroy {
-  currentStatus:'online' | 'offline' | 'unknown' = 'online';
+  currentStatus = signal<'online' | 'offline' | 'unknown'>('offline')
   private interval?: ReturnType<typeof setInterval>;
-  constructor(private destroyRef: DestroyRef) {}
+  constructor(private destroyRef: DestroyRef) {
+    effect(() => {
+      console.log(this.currentStatus())
+    });
+  }
 
   ngOnInit() {
     console.log('init');
     this.interval = setInterval(() => {
       const rnd = Math.random();
       if (rnd < 0.5) {
-        this.currentStatus = 'online';
+        this.currentStatus.set('online');
       } else if (rnd < 0.8) {
-        this.currentStatus = 'offline';
+        this.currentStatus.set('offline');
       } else {
-        this.currentStatus = 'unknown';
+        this.currentStatus.set('unknown');
       }
     }, 5000); // Simulate a status update every 5 seconds
 
