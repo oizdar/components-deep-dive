@@ -1,4 +1,13 @@
-import { Component, ElementRef, Signal, viewChild, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  Signal,
+  viewChild,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import { ButtonComponent } from "../../../shared/button/button.component";
 import { ControlComponent } from "../../../shared/control/control.component";
 import { FormsModule } from "@angular/forms";
@@ -14,15 +23,25 @@ import { FormsModule } from "@angular/forms";
   templateUrl: './new-ticket.component.html',
   styleUrl: './new-ticket.component.css'
 })
-export class NewTicketComponent {
-  // @ViewChild('form') private form?: ElementRef<HTMLFormElement>;
+export class NewTicketComponent implements AfterViewInit, OnInit {
+  @ViewChild('form') private form?: ElementRef<HTMLFormElement>;
   // @ViewChildren(ButtonComponent) buttons?: ButtonComponent[]; for multiple items
-  private form = viewChild.required<ElementRef<HTMLFormElement>>('form'); //another way to get the form element, gives signal
+  // private form = viewChild.required<ElementRef<HTMLFormElement>>('form'); //another way to get the form element, gives signal
   onSubmit(title: string, request: string) {
 
     console.log(title, request, this.form);
     console.dir(this.form);
-    // this.form?.nativeElement.reset();
-    this.form().nativeElement.reset(); // if use signal
+    this.form?.nativeElement.reset();
+    // this.form().nativeElement.reset(); // if use signal
+  }
+
+  ngAfterViewInit() {
+    console.log('AFTER VIEW INIT'); // you have a guarantee that the view items are initialized
+    console.log(this.form?.nativeElement);
+  }
+
+  ngOnInit() {
+    console.log('INIT NEW TICKET COMPONENT');
+    console.log(this.form?.nativeElement); // this will be undefined because the view is not initialized yet (not happens with signals, but only with decorators)
   }
 }
