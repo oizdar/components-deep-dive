@@ -1,9 +1,9 @@
 <form (ngSubmit)="onSubmit(title.value, request.value)" #form> <!-- title.value or title if needed  -->
   <app-control name="title" label="Title">
-    <input type="text" name="title" id="title" #title />  <!--  is template variable HTMLInputElement-->
+    <input type="text" name="title" id="title" #title #input />  <!--  is template variable HTMLInputElement-->
   </app-control>
   <app-control name="request" label="Request">
-    <textarea name="request" id="request" rows="3" #request></textarea>  <!-- is template variable HTMLTextareaElement-->
+    <textarea name="request" id="request" rows="3" #request #input></textarea>  <!-- is template variable HTMLTextareaElement-->
   </app-control>
   <p>
     <button appButton> <!-- #btn tmpl variable ButtonComponent  without appButton attribute it will become HTMLButtonElement -->
